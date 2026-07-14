@@ -232,7 +232,7 @@ def _embed_google(texts, task_type):
             model="models/text-embedding-001",
             content=batch, 
             task_type=task_type,
-            title="Academic Document" if task_type == "retrieval_document" else None
+            title="Academic Document" if task_type == "retrieval_document" else None,
             output_dimensioality=768
         )
         emb = result["embedding"]
