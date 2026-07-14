@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 환경변수 / 비밀키
+.env
+
+# 벡터 DB / 캐시
+.chromadb/
+chroma_db/
+*.log
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
