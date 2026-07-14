@@ -222,6 +222,8 @@ def load_hf_model():
 
 
 def _embed_google(texts, task_type):
+    if "api_key" in st.session_state and st.session_state"api_key":
+        genai.configure(api_key=st.session_state"api_key")
     embeddings = []
     BATCH = 90
     for i in range(0, len(texts), BATCH):
