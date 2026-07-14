@@ -415,6 +415,7 @@ with st.sidebar:
         help="환경변수(GOOGLE_API_KEY)가 없어도 여기에 직접 입력하면 됩니다. https://aistudio.google.com/apikey 에서 무료 발급 가능",
     )
     if api_key:
+        os.environ["GOOGLE_API_KEY"] = api_key
         if not st.session_state.api_key_ok or st.session_state.get("_last_key") != api_key:
             with st.spinner("API Key 확인 중..."):
                 ok = configure_api(api_key)
