@@ -30,7 +30,7 @@ st.set_page_config(
     layout="wide",
 )
 
-EMBEDDING_MODEL = "models/embedding-001"  # 가장 범용적으로 지원되는 안정 모델
+EMBEDDING_MODEL = "models/text-embedding-004"
 HF_FALLBACK_MODELS = ["jhgan/ko-sroberta-multitask", "sentence-transformers/all-MiniLM-L6-v2"]
 COLLECTION_NAME = "academic_rag_collection"
 
