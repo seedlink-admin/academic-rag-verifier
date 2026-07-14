@@ -30,7 +30,7 @@ st.set_page_config(
     layout="wide",
 )
 
-EMBEDDING_MODEL = "models/text-embedding-001"
+EMBEDDING_MODEL = "models/text-embedding-004"
 HF_FALLBACK_MODELS = ["jhgan/ko-sroberta-multitask", "sentence-transformers/all-MiniLM-L6-v2"]
 COLLECTION_NAME = "academic_rag_collection"
 
@@ -229,11 +229,9 @@ def _embed_google(texts, task_type):
     for i in range(0, len(texts), BATCH):
         batch = texts[i : i + BATCH]
         result = genai.embed_content(
-            model="models/text-embedding-001",
+            model="models/text-embedding-004",
             content=batch, 
             task_type=task_type,
-            title="Academic Document" if task_type == "retrieval_document" else None,
-            output_dimensioality=768
         )
         emb = result["embedding"]
         # 단일 항목 입력 시 1차원 벡터가 반환될 수 있음
