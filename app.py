@@ -229,7 +229,10 @@ def _embed_google(texts, task_type):
     for i in range(0, len(texts), BATCH):
         batch = texts[i : i + BATCH]
         result = genai.embed_content(
-            model=EMBEDDING_MODEL, content=batch, task_type=task_type
+            model="models/text-embedding-004",
+            content=batch, 
+            task_type=task_type,
+            title="Academic Document" if task_type == "retrieval_document" else None
         )
         emb = result["embedding"]
         # 단일 항목 입력 시 1차원 벡터가 반환될 수 있음
