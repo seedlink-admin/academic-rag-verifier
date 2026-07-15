@@ -224,17 +224,29 @@ def load_hf_model():
 def _embed_google(texts, task_type):
     if "api_key" in st.session_state and st.session_state["api_key"]:
         genai.configure(api_key=st.session_state["api_key"])
+        
+    # 1. 서버에 직접 물어봐서 현재 사용 가능한 임베딩 모델을 자동으로 찾습니다! (NotFound 원천 차단)
+    available_models = [
+        m.name for m in genai.list_models() 
+        if 'embedContent' in m.supported_generation_methods
+    ]
+    
+    if not available_models:
+        raise RuntimeError("현재 API Key로 접근 가능한 구글 임베딩 모델이 없습니다. (API 권한 확인 필요)")
+        
+    # 2. 확인된 목록 중 가장 첫 번째(최신) 유효한 모델을 자동 지정합니다.
+    target_model = available_models[0]
+    
     embeddings = []
     BATCH = 90
     for i in range(0, len(texts), BATCH):
         batch = texts[i : i + BATCH]
         result = genai.embed_content(
-            model="models/text-embedding-004",
-            content=batch, 
-            task_type=task_type,
+            model=target_model,  # 👈 서버가 직접 확인한 확실한 모델명만 사용!
+            content=batch,
+            task_type=task_type
         )
         emb = result["embedding"]
-        # 단일 항목 입력 시 1차원 벡터가 반환될 수 있음
         if emb and isinstance(emb[0], (int, float)):
             emb = [emb]
         embeddings.extend(emb)
