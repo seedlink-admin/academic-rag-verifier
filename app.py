@@ -429,15 +429,15 @@ with st.sidebar:
         help="환경변수(GOOGLE_API_KEY)가 없어도 여기에 직접 입력하면 됩니다. https://aistudio.google.com/apikey 에서 무료 발급 가능",
     )
     if api_key:
-       if not st.session_state.api_key_ok or st.session_state.get("_last_key") != api_key:
+        if not st.session_state.api_key_ok or st.session_state.get("_last_key") != api_key:
             with st.spinner("API Key 확인 중..."):
                 ok = configure_api(api_key)
-            st.session_state.api_key_ok = ok
-            st.session_state["_last_key"] = api_key
+                st.session_state.api_key_ok = ok
+                st.session_state["_last_key"] = api_key
         if st.session_state.api_key_ok:
-            st.success("✅ API Key 인증 완료")
+            st.success("✔ API Key 인증 완료")
         else:
-            st.error("❌ API Key가 유효하지 않습니다.")
+            st.error("✖ API Key가 유효하지 않습니다.")
     else:
         st.info("Gemini API Key를 입력해 주세요.")
 
